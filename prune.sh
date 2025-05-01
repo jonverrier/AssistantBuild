@@ -5,7 +5,6 @@ directories=(
     "PromptRepository"
     "Assistant"
     "AssistantAzureServer"
-    "AssistantWebApp"
     # Add more directories as needed
 )
 
