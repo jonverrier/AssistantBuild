@@ -1,7 +1,7 @@
 #!/bin/bash
-ts_directories=("PromptRepository/src" "Assistant/src" "AssistantAzureServer/src" "AssistantWebApp/src")
+ts_directories=("PromptRepository/src" "Assistant/src" "AssistantAzureServer/src" "AssistantWebApp/src", "AssistantIngest/src")
 
-ts_test_directories=("PromptRepository/test" "Assistant/test" "AssistantAzureServer/test" "AssistantWebApp/test")
+ts_test_directories=("PromptRepository/test" "Assistant/test" "AssistantAzureServer/test" "AssistantWebApp/test", "AssistantIngest/test")
 
 
 # Function to count non-whitespace lines in files

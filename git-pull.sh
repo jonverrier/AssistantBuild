@@ -7,6 +7,7 @@ directories=(
     "Assistant"
     "AssistantAzureServer"
     "AssistantWebApp"
+    "AssistantIngest"
     # Add more directories as needed
 )
 

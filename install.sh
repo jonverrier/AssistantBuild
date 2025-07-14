@@ -6,6 +6,7 @@ directories=(
     "Assistant"
     "AssistantAzureServer"
     "AssistantWebApp"
+    "AssistantIngest"
     # Add more directories as needed
 )
 
@@ -19,7 +20,7 @@ for directory in "${directories[@]}"; do
         
         # Run npm install
         npm install
-        npm run install || true
+        npm run install-local || true
         
         # Go back to original directory
         cd - > /dev/null
