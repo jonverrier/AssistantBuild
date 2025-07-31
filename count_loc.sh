@@ -1,7 +1,7 @@
 #!/bin/bash
-ts_directories=("PromptRepository/src" "Assistant/src" "AssistantAzureServer/src" "AssistantWebApp/src", "AssistantIngest/src")
+ts_directories=("PromptRepository/src" "Assistant/src" "AssistantAzureServer/src" "AssistantWebApp/src" "AssistantIngest/src")
 
-ts_test_directories=("PromptRepository/test" "Assistant/test" "AssistantAzureServer/test" "AssistantWebApp/test", "AssistantIngest/test")
+ts_test_directories=("PromptRepository/test" "Assistant/test" "AssistantAzureServer/test" "AssistantWebApp/test" "AssistantIngest/test")
 
 
 # Function to count non-whitespace lines in files
@@ -31,21 +31,8 @@ if [[ ! -d $base_dir ]]; then
     exit 1
 fi
 
-total_py_lines=0
 total_ts_lines=0
-total_py_test_lines=0
 total_ts_test_lines=0
-
-# Process Python directories
-echo "Processing Python directories..."
-for dir in "${py_directories[@]}"; do
-    full_path="$base_dir/$dir"
-    if [[ -d $full_path ]]; then
-        echo "Checking directory: $full_path"
-        line_count=$(count_lines "$full_path" "py")        
-        total_py_lines=$((total_py_lines + line_count))     
-    fi
-done
 
 # Process TypeScript directories
 #
@@ -72,6 +59,8 @@ for dir in "${ts_test_directories[@]}"; do
         total_ts_test_lines=$((total_ts_test_lines + line_count))   
         line_count=$(count_lines "$full_path" "tsx")        
         total_ts_test_lines=$((total_ts_test_lines + line_count))         
+    else
+        echo "Directory not found: $full_path"
     fi
 done
 
