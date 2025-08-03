@@ -8,6 +8,6 @@ npm run install-local
 npm run build
 
 cd ..
-cd AssistantWebApp
+cd AssistantAzureServer
 npm i
 func azure functionapp publish MotifAssistantApi
