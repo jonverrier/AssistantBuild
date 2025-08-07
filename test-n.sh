@@ -1,4 +1,15 @@
 #!/bin/bash
+# Copyright (c) 2025 Jon Verrier
+#
+# @module test-n.sh
+# Repeated test execution script for the Assistant package.
+# Runs npm test in the Assistant directory N times for reliability testing,
+# stress testing, or intermittent failure detection. Validates input parameters
+# and directory existence before execution.
+#
+# Usage: ./test-n.sh <number_of_runs>
+# Example: ./test-n.sh 5
+# Requires: npm, Assistant directory with package.json test script
 
 # Check if a parameter is provided
 if [ $# -ne 1 ]; then

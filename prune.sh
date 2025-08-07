@@ -1,4 +1,13 @@
 #!/bin/bash
+# Copyright (c) 2025 Jon Verrier
+#
+# @module prune.sh
+# Multi-package dependency pruning script for StrongAI Assistant platform.
+# Removes extraneous packages from node_modules across all package directories
+# using npm prune. Helps maintain clean dependency trees and reduce disk usage.
+#
+# Usage: ./prune.sh
+# Requires: npm, package.json in each target directory
 
 # Define the array of directories
 directories=(

@@ -1,4 +1,16 @@
 #!/bin/bash
+# Copyright (c) 2025 Jon Verrier
+#
+# @module count-loc.sh
+# Lines of code analysis script for StrongAI Assistant platform.
+# Counts non-whitespace lines in TypeScript source files (.ts/.tsx) across
+# all package directories, separating source code from test code. Provides
+# comprehensive code metrics for the entire monorepo structure.
+#
+# Usage: ./count-loc.sh <base_directory>
+# Example: ./count-loc.sh /path/to/strongai
+# Requires: grep, find, bash with process substitution support
+
 ts_directories=("PromptRepository/src" "Assistant/src" "AssistantAzureServer/src" "AssistantWebApp/src" "AssistantIngest/src")
 
 ts_test_directories=("PromptRepository/test" "Assistant/test" "AssistantAzureServer/test" "AssistantWebApp/test" "AssistantIngest/test")
