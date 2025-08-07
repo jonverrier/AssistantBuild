@@ -1,4 +1,14 @@
 #!/bin/bash
+# Copyright (c) 2025 Jon Verrier
+#
+# @module git-status.sh
+# Multi-repository git status check script for StrongAI Assistant platform.
+# Checks git status across all package directories to provide a consolidated
+# view of repository states. Useful for identifying uncommitted changes,
+# untracked files, and branch status across the monorepo structure.
+#
+# Usage: ./git-status.sh
+# Requires: git, each directory must be a git repository
 
 # Define the array of directories
 directories=(

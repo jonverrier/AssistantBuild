@@ -1,4 +1,13 @@
 #!/bin/bash
+# Copyright (c) 2025 Jon Verrier
+#
+# @module test.sh
+# Multi-package test execution script for StrongAI Assistant platform.
+# Runs npm test across all defined package directories in the monorepo structure.
+# Validates directory existence and provides status reporting for each test suite.
+#
+# Usage: ./test.sh
+# Requires: npm, package.json with test script in each target directory
 
 # Define the array of directories
 directories=(

@@ -1,0 +1,284 @@
+# StrongAI Assistant - Build & Shell Script Rules
+
+## Project Overview
+You are working on the StrongAI Assistant project, a comprehensive AI assistant platform for fitness coaching and gym management. The project consists of 5 main packages:
+
+1. **Assistant** - Core library with AI chat, memory, and program generation
+2. **AssistantAzureServer** - Azure Functions API server 
+3. **AssistantWebApp** - React web application with Fluent UI
+4. **AssistantIngest** - Document processing and content ingestion pipeline
+5. **AssistantBuild** - Build automation and deployment scripts
+
+## Shell Script Technology Stack
+- **Shell**: Bash (for cross-platform compatibility on Windows/Linux/macOS)
+- **Build Tools**: npm, TypeScript compiler, Makefiles, esbuild
+- **Package Management**: npm workspaces for monorepo structure
+- **Testing**: npm test scripts, parallel test execution
+- **File Operations**: Standard Unix tools (grep, find, sed, awk)
+- **Process Management**: Background jobs, signal handling, exit codes
+
+## Shell Script Standards & Conventions
+
+### Script Header Requirements
+- **Shebang**: Always start with `#!/bin/bash`
+- **Copyright**: Include `# Copyright (c) 2025 Jon Verrier` 
+- **Description**: Brief comment explaining script purpose
+- **Usage**: Include usage information for scripts with parameters
+
+### Error Handling & Validation
+- **Parameter validation**: Check argument count and validity
+- **Directory/file existence**: Validate paths before operations
+- **Exit codes**: Use meaningful exit codes (0=success, 1=general error, 2=usage error)
+- **Error messages**: Write errors to stderr with descriptive messages
+- **Fail fast**: Exit immediately on critical errors
+
+### Variable & Function Naming
+- **Variables**: lowercase with underscores (e.g., `base_dir`, `total_lines`)
+- **Functions**: lowercase with underscores (e.g., `count_lines`, `validate_directory`)
+- **Constants**: UPPERCASE with underscores (e.g., `DEFAULT_TIMEOUT`, `MAX_RETRIES`)
+- **Local variables**: Use `local` keyword in functions
+
+### Script Organization & Structure
+```bash
+#!/bin/bash
+# Copyright (c) 2025 Jon Verrier
+# Script description and purpose
+
+# Constants and configuration
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Function definitions
+function validate_environment() {
+    # Validation logic
+}
+
+function main() {
+    # Main script logic
+}
+
+# Script execution
+main "$@"
+```
+
+### File Naming Conventions
+- **Build scripts**: `build.sh`, `clean.sh`, `deploy.sh`
+- **Test scripts**: `test.sh`, `test_n.sh`, `run_tests.sh`
+- **Utility scripts**: `count_loc.sh`, `setup.sh`, `validate.sh`
+- **Package scripts**: `build_all.sh`, `install_deps.sh`
+
+## Build Script Patterns & Best Practices
+
+### Cross-Package Operations
+- **Package Discovery**: Use arrays to define package directories
+- **Parallel Execution**: Run independent operations in parallel when possible
+- **Dependency Order**: Respect build dependencies (Assistant → Server → WebApp)
+- **Error Propagation**: Stop on first failure for critical operations
+
+### File Processing Patterns
+- **Safe Iteration**: Use `while IFS= read -r` for processing file lists
+- **Path Handling**: Always quote variables and handle spaces in paths
+- **Pattern Matching**: Use `find` with `-name` patterns for file discovery
+- **Counting/Aggregation**: Accumulate results in variables for reporting
+
+### Testing & Validation Patterns
+- **Pre-flight Checks**: Validate environment before starting operations
+- **Progress Reporting**: Provide clear feedback during long operations
+- **Result Verification**: Check success/failure of each step
+- **Cleanup**: Ensure temporary files and processes are cleaned up
+
+### Performance Optimization
+- **Caching**: Cache expensive operations (dependency installs, builds)
+- **Parallel Processing**: Use background jobs for independent tasks
+- **Early Exit**: Fail fast on critical errors
+- **Resource Management**: Monitor memory/disk usage for large operations
+
+## Package-Specific Build Guidelines
+
+### Assistant (Core Library)
+- **Build Order**: Must build first (other packages depend on it)
+- **TypeScript**: Compile with strict mode, generate .d.ts files
+- **Testing**: Unit tests with Mocha, export coverage reports
+- **Output**: Ensure clean dist/ directory for consumption
+
+### AssistantAzureServer (API Server)
+- **Dependencies**: Depends on Assistant package build completion
+- **Azure Functions**: Use func commands for local testing
+- **Environment**: Validate Azure connection strings and keys
+- **Deployment**: Package for Azure Functions runtime
+
+### AssistantWebApp (React App)
+- **Dependencies**: Depends on Assistant package for types
+- **Build Tool**: Use esbuild for fast compilation
+- **Static Assets**: Handle public assets and routing config
+- **Production**: Generate optimized bundles with source maps
+
+### AssistantIngest (Content Pipeline)
+- **Makefiles**: Complex document processing workflows
+- **Input Validation**: Check file formats and sizes before processing
+- **Output Generation**: Create TypeScript exports from processed content
+- **Parallel Processing**: Process multiple documents concurrently
+
+### AssistantBuild (Build Coordination)
+- **Master Scripts**: Coordinate builds across all packages
+- **Dependency Resolution**: Ensure correct build order
+- **Environment Setup**: Validate Node.js, npm versions
+- **Integration Testing**: Run cross-package integration tests
+
+## Build Script Development Workflow
+
+### Script Development Process
+1. **Requirements**: Define what the script needs to accomplish
+2. **Environment Check**: Validate prerequisites and dependencies
+3. **Error Cases**: Plan for common failure scenarios
+4. **Testing**: Test with various inputs and edge cases
+5. **Documentation**: Add usage examples and parameter descriptions
+
+### Common Build Operations
+- **Clean**: Remove build artifacts (`rm -rf dist/ node_modules/.cache/`)
+- **Install**: Install dependencies (`npm ci` for clean installs)
+- **Build**: Compile TypeScript (`npx tsc` or `npm run build`)
+- **Test**: Run test suites (`npm test` with appropriate timeouts)
+- **Package**: Create distribution packages (`npm pack`)
+
+### Debugging & Troubleshooting
+- **Verbose Mode**: Add `-v` flags for detailed output
+- **Dry Run**: Add `--dry-run` options for safe testing
+- **Log Files**: Capture detailed logs for complex operations
+- **Intermediate State**: Save progress for resumable operations
+
+## Script Security & Safety
+
+### Input Validation & Sanitization
+- **Parameter Validation**: Check all command-line arguments
+- **Path Validation**: Verify paths exist and are accessible
+- **File Type Validation**: Check file extensions and content types
+- **Range Checking**: Validate numeric inputs are within acceptable ranges
+
+### Safe File Operations
+- **Backup Strategy**: Create backups before destructive operations
+- **Atomic Operations**: Use temporary files and move for critical updates
+- **Permission Checks**: Verify read/write permissions before operations
+- **Cleanup**: Always clean up temporary files and processes
+
+## Build & Deployment Scripts
+
+### Local Development
+- **Individual Packages**: `cd PackageName && npm run build`
+- **Full Build**: `./AssistantBuild/build.sh` for coordinated builds
+- **Testing**: `./test.sh` for all packages, `./test_n.sh N` for repeated runs
+- **Clean Builds**: `./clean.sh && ./build.sh` for fresh builds
+
+### Production Deployment
+- **Pre-deployment**: Validate environment and credentials
+- **Azure Functions**: Use Azure CLI for function app deployment
+- **Static Sites**: Deploy web app with proper routing configuration
+- **Rollback Strategy**: Maintain previous version for quick rollback
+
+## Common Script Utilities & Patterns
+
+### Logging & Output
+- **Structured Output**: Use consistent formatting for logs
+- **Progress Indicators**: Show progress for long-running operations
+- **Error Reporting**: Clear, actionable error messages to stderr
+- **Success Confirmation**: Explicit success messages with summary
+
+### File & Directory Operations
+- **Safe Navigation**: Use `cd "$dir" || exit 1` patterns
+- **Glob Patterns**: Use `find` instead of shell globs for reliability
+- **File Counting**: Use `grep -c` or `wc -l` for line counting
+- **Archive Operations**: Use `tar` with compression for backups
+
+## Shell Script Template Patterns
+
+### Basic Script Template
+```bash
+#!/bin/bash
+# Copyright (c) 2025 Jon Verrier
+# Script purpose: Brief description of what this script does
+# Usage: script_name.sh [parameters]
+
+set -euo pipefail  # Exit on error, undefined vars, pipe failures
+
+# Constants
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Default values
+DEFAULT_TIMEOUT=30
+VERBOSE=false
+
+# Functions
+function usage() {
+    echo "Usage: $0 [options] <required_param>"
+    echo "  -v, --verbose    Enable verbose output"
+    echo "  -h, --help       Show this help message"
+    exit 2
+}
+
+function log_info() {
+    echo "[INFO] $*" >&2
+}
+
+function log_error() {
+    echo "[ERROR] $*" >&2
+}
+
+function main() {
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -v|--verbose) VERBOSE=true; shift ;;
+            -h|--help) usage ;;
+            *) break ;;
+        esac
+    done
+    
+    # Validate required parameters
+    if [[ $# -lt 1 ]]; then
+        log_error "Missing required parameter"
+        usage
+    fi
+    
+    # Main logic here
+    log_info "Starting operation..."
+}
+
+# Execute main function with all arguments
+main "$@"
+```
+
+### Build Script Pattern
+```bash
+#!/bin/bash
+# Multi-package build coordination script
+
+readonly PACKAGES=("Assistant" "AssistantAzureServer" "AssistantWebApp")
+
+function build_package() {
+    local package_name=$1
+    local package_dir="$PROJECT_ROOT/$package_name"
+    
+    if [[ ! -d "$package_dir" ]]; then
+        log_error "Package directory not found: $package_dir"
+        return 1
+    fi
+    
+    log_info "Building package: $package_name"
+    (cd "$package_dir" && npm run build) || {
+        log_error "Build failed for package: $package_name"
+        return 1
+    }
+    
+    log_info "Successfully built: $package_name"
+}
+
+function main() {
+    for package in "${PACKAGES[@]}"; do
+        build_package "$package" || exit 1
+    done
+    log_info "All packages built successfully"
+}
+```
+
+Remember: This is a fitness coaching AI platform focusing on CrossFit, functional fitness, and gym management. Build scripts should support the rapid development and deployment of fitness-related AI services.
