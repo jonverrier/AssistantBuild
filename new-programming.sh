@@ -21,4 +21,5 @@ npm run build
 cd ..
 cd AssistantAzureServer
 npm i
+npm run build
 func azure functionapp publish MotifAssistantApi
