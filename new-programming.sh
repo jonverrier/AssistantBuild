@@ -3,12 +3,14 @@
 #
 # @module new-programming.sh
 # Specialized deployment script for StrongAI Assistant programming content updates.
-# Builds wrapped programming content in AssistantIngest, updates Assistant package
-# dependencies, builds the core library, and deploys the updated Azure Function API.
+# Builds wrapped programming content in AssistantIngest, 
+# updates Assistant package dependencies, builds the core library, and deploys the 
+# updated Azure Function API.
 # Used for content pipeline updates and production deployments.
 #
 # Usage: ./new-programming.sh
 # Requires: make, npm, Azure Functions CLI (func), Azure deployment credentials
+
 
 cd AssistantIngest
 make wrapped-CoachNotesProgramming
