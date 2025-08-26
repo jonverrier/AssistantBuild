@@ -14,7 +14,7 @@
 set -euo pipefail
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly COACHNOTES_DIR="$SCRIPT_DIR/AssistantIngest/content/inputs/coachnotes"
+readonly COACHNOTES_DIR="$SCRIPT_DIR/../AssistantIngest/content/inputs/coachnotes"
 
 function log_info() {
     echo "[INFO] $*" >&2
