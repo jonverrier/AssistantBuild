@@ -11,7 +11,7 @@
 # Requires: make, npm, Azure Functions CLI (func), Azure deployment credentials
 
 cd AssistantIngest
-make wrapped-CoachNotesContent wrapped-CoachNotesContentLite
+make content-flow lite-flow
 
 cd ..
 cd Assistant
